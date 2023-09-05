@@ -1,0 +1,7 @@
+res://Scenes/Background/Background.tscn
+res://Global/GlobalVars.gd
+res://Scenes/MainMenu/MainMenu.tscn
+res://Scenes/Game/Game.tscn
+res://Scenes/Player/Player.tscn
+res://Scenes/Game/Score.gd
+res://Scenes/Game/GameOver.gd

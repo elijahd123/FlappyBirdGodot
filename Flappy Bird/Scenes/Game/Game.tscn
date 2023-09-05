@@ -1,0 +1,71 @@
+[gd_scene load_steps=10 format=3 uid="uid://enixh6481bfc"]
+
+[ext_resource type="PackedScene" uid="uid://hdebu58v287i" path="res://Scenes/Background/Background.tscn" id="1_juaf1"]
+[ext_resource type="PackedScene" uid="uid://kkn7p3ijf55k" path="res://Scenes/Player/Player.tscn" id="2_84pqs"]
+[ext_resource type="Script" path="res://Scenes/Game/StaticKillArea.gd" id="3_y75d5"]
+[ext_resource type="FontFile" uid="uid://cfdd14m5jgfsv" path="res://Assets/Fonts/flappy-font.ttf" id="4_y7y87"]
+[ext_resource type="Script" path="res://Scenes/Game/Score.gd" id="5_ivdtn"]
+[ext_resource type="Script" path="res://Scenes/Game/GameOver.gd" id="6_w3nvk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_13v0n"]
+size = Vector2(319, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xan4i"]
+size = Vector2(312, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sd281"]
+size = Vector2(336.5, 20)
+
+[node name="Game" type="Node2D"]
+
+[node name="Background" parent="." instance=ExtResource("1_juaf1")]
+position = Vector2(80, 353)
+
+[node name="Player" parent="." instance=ExtResource("2_84pqs")]
+position = Vector2(221, 197)
+
+[node name="Boundaries" type="StaticBody2D" parent="."]
+
+[node name="Ceiling" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2(240.5, -5)
+shape = SubResource("RectangleShape2D_13v0n")
+
+[node name="Floor" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2(250, 506)
+shape = SubResource("RectangleShape2D_xan4i")
+
+[node name="StaticKillArea" type="Area2D" parent="."]
+script = ExtResource("3_y75d5")
+
+[node name="FloorDetection" type="CollisionShape2D" parent="StaticKillArea"]
+position = Vector2(255, 511)
+shape = SubResource("RectangleShape2D_sd281")
+
+[node name="UI" type="Node2D" parent="."]
+
+[node name="Score" type="Label" parent="UI"]
+offset_right = 29.0
+offset_bottom = 54.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("4_y7y87")
+theme_override_font_sizes/font_size = 50
+text = "0"
+script = ExtResource("5_ivdtn")
+
+[node name="GameOver" type="Label" parent="UI"]
+offset_right = 267.0
+offset_bottom = 65.0
+theme_override_colors/font_color = Color(0.94902, 0.729412, 0.0196078, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("4_y7y87")
+theme_override_font_sizes/font_size = 50
+text = "Game Over"
+script = ExtResource("6_w3nvk")
+
+[connection signal="body_entered" from="StaticKillArea" to="StaticKillArea" method="_on_body_entered"]
