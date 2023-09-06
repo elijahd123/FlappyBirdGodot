@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cu335pig38fnw"]
+[gd_scene load_steps=9 format=3 uid="uid://cu335pig38fnw"]
 
 [ext_resource type="PackedScene" uid="uid://hdebu58v287i" path="res://Scenes/Background/Background.tscn" id="1_hhoo5"]
 [ext_resource type="Script" path="res://Scenes/MainMenu/MainMenu.gd" id="1_mbawd"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dcyujr37753wp" path="res://Assets/PlayButton/playbuttonclick.png" id="3_eamf7"]
 [ext_resource type="Texture2D" uid="uid://stjbdtg02n5p" path="res://Assets/PlayButton/playbuttonhover.png" id="4_txjo8"]
 [ext_resource type="Texture2D" uid="uid://ba8xy16dve6xa" path="res://Assets/flappybirdlogo.png" id="6_c0w8k"]
+[ext_resource type="PackedScene" uid="uid://74vrbblg2by3" path="res://Scenes/MovingFloor/moving_floor.tscn" id="8_nu78i"]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_mbawd")
@@ -29,5 +30,8 @@ script = ExtResource("3_0x2xk")
 [node name="Logo" type="Sprite2D" parent="."]
 position = Vector2(576, 170)
 texture = ExtResource("6_c0w8k")
+
+[node name="MovingFloor" parent="." instance=ExtResource("8_nu78i")]
+position = Vector2(100, 540)
 
 [connection signal="button_down" from="Buttons/PlayButton" to="." method="_on_play_button_button_down"]

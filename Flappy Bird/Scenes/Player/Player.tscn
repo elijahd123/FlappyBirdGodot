@@ -55,6 +55,7 @@ radius = 30.0
 script = ExtResource("1_tq4kk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 3000
 sprite_frames = SubResource("SpriteFrames_jm40c")
 animation = &"Idle"
 autoplay = "Idle"

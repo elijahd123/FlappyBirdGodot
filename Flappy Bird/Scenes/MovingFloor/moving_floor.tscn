@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://74vrbblg2by3"]
+
+[ext_resource type="Script" path="res://Scenes/MovingFloor/ParallaxBackground.gd" id="1_ge8bf"]
+[ext_resource type="Texture2D" uid="uid://bhkn3sw7nuwnb" path="res://Assets/floor.png" id="1_h4i3x"]
+
+[sub_resource type="GDScript" id="GDScript_sph65"]
+script/source = "extends Sprite2D
+
+
+
+"
+
+[node name="MovingFloor" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+layer = 0
+script = ExtResource("1_ge8bf")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(1152, 0)
+
+[node name="Floor" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+z_index = 2000
+position = Vector2(576, 574.5)
+texture = ExtResource("1_h4i3x")
+script = SubResource("GDScript_sph65")

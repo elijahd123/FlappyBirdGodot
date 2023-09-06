@@ -1,11 +1,19 @@
-[gd_scene load_steps=10 format=3 uid="uid://enixh6481bfc"]
+[gd_scene load_steps=18 format=3 uid="uid://enixh6481bfc"]
 
 [ext_resource type="PackedScene" uid="uid://hdebu58v287i" path="res://Scenes/Background/Background.tscn" id="1_juaf1"]
 [ext_resource type="PackedScene" uid="uid://kkn7p3ijf55k" path="res://Scenes/Player/Player.tscn" id="2_84pqs"]
 [ext_resource type="Script" path="res://Scenes/Game/StaticKillArea.gd" id="3_y75d5"]
 [ext_resource type="FontFile" uid="uid://cfdd14m5jgfsv" path="res://Assets/Fonts/flappy-font.ttf" id="4_y7y87"]
 [ext_resource type="Script" path="res://Scenes/Game/Score.gd" id="5_ivdtn"]
+[ext_resource type="Script" path="res://Scenes/Game/HighScore.gd" id="6_4yi8e"]
 [ext_resource type="Script" path="res://Scenes/Game/GameOver.gd" id="6_w3nvk"]
+[ext_resource type="Script" path="res://Scenes/Game/Timer.gd" id="7_1ea13"]
+[ext_resource type="Script" path="res://Scenes/Game/HighScoreColon.gd" id="8_bfj4p"]
+[ext_resource type="PackedScene" uid="uid://74vrbblg2by3" path="res://Scenes/MovingFloor/moving_floor.tscn" id="8_h23js"]
+[ext_resource type="Script" path="res://Scenes/Game/ReplayButton.gd" id="11_820m6"]
+[ext_resource type="Texture2D" uid="uid://0xrrotloi3ts" path="res://Assets/PlayButton/playbutton.png" id="11_l1y3r"]
+[ext_resource type="Texture2D" uid="uid://dcyujr37753wp" path="res://Assets/PlayButton/playbuttonclick.png" id="12_fgta8"]
+[ext_resource type="Texture2D" uid="uid://stjbdtg02n5p" path="res://Assets/PlayButton/playbuttonhover.png" id="13_uk87u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_13v0n"]
 size = Vector2(319, 10)
@@ -18,11 +26,11 @@ size = Vector2(336.5, 20)
 
 [node name="Game" type="Node2D"]
 
-[node name="Background" parent="." instance=ExtResource("1_juaf1")]
-position = Vector2(80, 353)
-
 [node name="Player" parent="." instance=ExtResource("2_84pqs")]
 position = Vector2(221, 197)
+
+[node name="Background" parent="." instance=ExtResource("1_juaf1")]
+position = Vector2(80, 353)
 
 [node name="Boundaries" type="StaticBody2D" parent="."]
 
@@ -41,9 +49,17 @@ script = ExtResource("3_y75d5")
 position = Vector2(255, 511)
 shape = SubResource("RectangleShape2D_sd281")
 
+[node name="PipeSpawnTimer" type="Timer" parent="."]
+autostart = true
+script = ExtResource("7_1ea13")
+
+[node name="MovingFloor" parent="." instance=ExtResource("8_h23js")]
+position = Vector2(27, 517)
+
 [node name="UI" type="Node2D" parent="."]
 
 [node name="Score" type="Label" parent="UI"]
+top_level = true
 offset_right = 29.0
 offset_bottom = 54.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -54,7 +70,20 @@ theme_override_font_sizes/font_size = 50
 text = "0"
 script = ExtResource("5_ivdtn")
 
+[node name="HighScore" type="Label" parent="UI"]
+top_level = true
+offset_right = 29.0
+offset_bottom = 54.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("4_y7y87")
+theme_override_font_sizes/font_size = 50
+text = "0"
+script = ExtResource("6_4yi8e")
+
 [node name="GameOver" type="Label" parent="UI"]
+top_level = true
 offset_right = 267.0
 offset_bottom = 65.0
 theme_override_colors/font_color = Color(0.94902, 0.729412, 0.0196078, 1)
@@ -68,4 +97,29 @@ theme_override_font_sizes/font_size = 50
 text = "Game Over"
 script = ExtResource("6_w3nvk")
 
+[node name="HighScoreColon" type="Label" parent="UI"]
+top_level = true
+offset_right = 267.0
+offset_bottom = 65.0
+theme_override_colors/font_color = Color(0.94902, 0.729412, 0.0196078, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("4_y7y87")
+theme_override_font_sizes/font_size = 50
+text = "High Score:"
+script = ExtResource("8_bfj4p")
+
+[node name="ReplayButton" type="TextureButton" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("11_l1y3r")
+texture_pressed = ExtResource("12_fgta8")
+texture_hover = ExtResource("13_uk87u")
+script = ExtResource("11_820m6")
+
 [connection signal="body_entered" from="StaticKillArea" to="StaticKillArea" method="_on_body_entered"]
+[connection signal="timeout" from="PipeSpawnTimer" to="PipeSpawnTimer" method="_on_timeout"]
+[connection signal="button_down" from="ReplayButton" to="ReplayButton" method="_on_button_down"]

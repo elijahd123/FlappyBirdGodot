@@ -1,11 +1,12 @@
-Label
-Node2D
+TextureButton
+ParallaxLayer
+ParallaxBackground
+Timer
 CollisionShape2D
 Area2D
+Label
+Node2D
 StaticBody2D
 AnimatedSprite2D
 CharacterBody2D
-TextureButton
 Button
-ParallaxLayer
-ParallaxBackground

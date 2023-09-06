@@ -18,6 +18,7 @@ config/icon="res://Assets/icon.svg"
 [autoload]
 
 GlobalVars="*res://Global/GlobalVars.gd"
+Utils="*res://Global/Utils.gd"
 
 [rendering]
 
